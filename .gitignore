@@ -3,4 +3,4 @@ build/
 logs/
 src/autonomous_smoke_tracking_drone/src/scripts/modules
 .vscode/
-devel2/
+.catkin_tools/
