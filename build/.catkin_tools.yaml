@@ -1,0 +1,6 @@
+devel_space: /home/srijan1804/github/Autonomous-Drone-for-Dynamic-Smoke-Plume-Tracking/devel
+install: false
+install_space: /home/srijan1804/github/Autonomous-Drone-for-Dynamic-Smoke-Plume-Tracking/install
+profile: default
+source_space: /home/srijan1804/github/Autonomous-Drone-for-Dynamic-Smoke-Plume-Tracking/src
+workspace: /home/srijan1804/github/Autonomous-Drone-for-Dynamic-Smoke-Plume-Tracking
