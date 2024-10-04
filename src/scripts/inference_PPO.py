@@ -3,7 +3,7 @@
 from stable_baselines3 import PPO
 import rospy
 import numpy as np
-from drone_env_xyz_disc_7actions import DroneEnv
+from drone_env_PPO import DroneEnv
 
 EXECUTION = 'SIM' # 'SIM' or 'DEPLOY'
 ENV = DroneEnv(execution=EXECUTION, training=False)
