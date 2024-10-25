@@ -7,22 +7,21 @@ This repository features the code base for the "Autonomous Drone for Dynamic Smo
 ### Clone repo:
 ```bash
 cd ~
-mkdir gaia-feedback-control
-cd gaia-feedback-control
+mkdir autonomous-drone
+cd autonomous-drone
 mkdir src
 cd src
-git clone https://github.umn.edu/HongFlowFieldImagingLab/GAIA-drone-control.git
+git clone https://github.umn.edu/HongFlowFieldImagingLab/Autonomous-Drone-for-Dynamic-Smoke-Plume-Tracking.git
 ```
 
-### Run install script: (This will take quite some time on the Jetson and you will likely be prompted to re-enter the root password a few times)
+### Run install script:
+
+The install script is configured to install ROS Melodic and the dependencies needed to run yolov8 and Stable Baselines3 PPO.
 
 ```bash
-cd ~/gaia-feedback-control/src/GAIA-drone-control/install_scripts
+cd ~/autonomous-drone/src/autonomous-drone-for-dynamic-smoke-plume-tracking/install_scripts
 bash install_dependencies.sh
 ```
-The install script is configured to install ROS and the dependencies needed to run yolov5. 
-
-<!-- It does not currently install Spinnaker or PySpin, this must be done manually to complete the setup and be able to run things. 
 
 ### Manually install spinnaker node, spinnaker python:
 Either download directly from spinnaker website, or from our Google Drive:
