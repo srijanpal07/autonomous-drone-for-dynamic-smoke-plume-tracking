@@ -24,7 +24,7 @@ bash install_dependencies.sh
 ```
 
 ### Finalize installation:
-To finalize the installation, initialize and build the catkin project to make finding ROS packages easy:
+To finalize the installation, initialize and build the ROS package:
 ```bash
 source ~/.bashrc
 cd ~/autonomous-drone
