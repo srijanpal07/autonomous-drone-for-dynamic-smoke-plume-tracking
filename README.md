@@ -40,7 +40,7 @@ catkin build
 ## Running Smoke Tracking Controller:
 Quick start added some lines to ~/.bashrc to complete the sourcing of the repo and adding write permissions to the appropriate serial port for communicating with the drone via Mavros (drone and wiring configuration covered in Appendix A). This means the code is ready to run upon opening the terminal and can simply be launched with a single command, e.g.:
 ```bash
-roslaunch GAIA-drone-control track.launch
+roslaunch autonomous-drone-for-dynamic-smoke-plume-tracking track.launch
 ```
 To troubleshoot, run each individual node scripts using rosrun command, each in a separate terminal.
 
