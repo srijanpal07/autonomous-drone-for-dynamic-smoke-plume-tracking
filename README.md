@@ -16,16 +16,15 @@ git clone https://github.umn.edu/HongFlowFieldImagingLab/autonomous-drone-for-dy
 
 ### Run install script:
 
-The install script is configured to install ROS Melodic and the dependencies needed to run yolov8 and Stable Baselines3 PPO.
+The install script is configured to install ROS Melodic and necessary dependencies for running YOLOv8 and Stable Baselines3 PPO.
 
-Have to run this install scripts multiple times after the system automatically gets rebooted untill it shows "Completing Installation of Dependencies ..." on the terminal
-
+May need to run the installation script multiple times after the system automatically reboots until you see the message "Completing Installation of Dependencies ..." in the terminal. To execute the script, use the following commands:
 ```bash
 cd ~/gaia-autonomous-drone/src/autonomous-drone-for-dynamic-smoke-plume-tracking/install_scripts
 bash install_jetson_dependencies.sh
 ```
 
-To further optimize RAM space to run deep learning and deep reinforcement learning models, follow the additional steps mentioned in this link - https://www.jetson-ai-lab.com/tips_ram-optimization.html
+To further optimize RAM for running deep learning and deep reinforcement learning models, refer to the additional steps outlined in this link - https://www.jetson-ai-lab.com/tips_ram-optimization.html
 
 
 ### Building the ROS Package:
@@ -40,23 +39,23 @@ source ~/.bashrc
 ```
 
 ## Running Smoke Tracking Controller:
-"Quick start" added some lines to "~/.bashrc" to complete the sourcing of the repo and adding write permissions to the appropriate serial port for communicating with the drone Pixhawk via Mavros. This means the code is ready to run upon opening the terminal and can simply be launched with a single command, e.g.:
+The "Quick Start" setup automatically adds necessary lines to ~/.bashrc to source the repository and grant write permissions to the required serial port for communicating with the Pixhawk through MAVROS. With this configuration, the code is ready to run as soon as a terminal opens. You can start it with a single command:
 ```bash
 roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_jetson.launch
 ```
 
-By deafult, the controller node runs the PID (Proportional–Integral–Derivative) controller. To change to the DRL (Deep Reinforcement Learning) controller, the controller has to passed as an argument.
+By default, the controller node operates with the PID (Proportional–Integral–Derivative) controller. To switch to the DRL (Deep Reinforcement Learning) controller, specify the controller type as an argument.
 
-For PID controller:
+For the PID controller:
 ```bash
 roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_jetson.launch controller:=PID
 ```
-For DRL controller:
+For the DRL controller:
 ```bash
 roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_jetson.launch controller:=DRL
 ```
 
-To troubleshoot, run each individual node scripts using rosrun command, each in a separate terminal.
+To troubleshoot, you can run each node individually in separate terminals using the rosrun command:
 
 ```bash
 roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking mavros-telem-drone.launch
@@ -65,11 +64,12 @@ rosrun autonomous_drone_for_dynamic_smoke_plume_tracking segmentation_node.py
 rosrun autonomous_drone_for_dynamic_smoke_plume_tracking controller_node.py
 ```
 
-To end, you can either kill execution in each terminal with Ctrl-C, or to kill all the terminals altogether or in case if the tasks went to the background (as when starting via ssh then disconnecting) use:
+To stop execution, you can either press Ctrl-C in each terminal or, to terminate all nodes at once (useful if they’ve gone to the background, such as when started over SSH), run:
 
 ```bash
 rosnode kill --all
 ```
+This command will safely end all running ROS nodes.
 
 
 ## Configuring the Drone
