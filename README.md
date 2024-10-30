@@ -7,8 +7,8 @@ This repository features the code base for the "Autonomous Drone for Dynamic Smo
 ### Clone repo:
 ```bash
 cd ~
-mkdir autonomous-drone
-cd autonomous-drone
+mkdir gaia-autonomous-drone
+cd gaia-autonomous-drone
 mkdir src
 cd src
 git clone https://github.umn.edu/HongFlowFieldImagingLab/autonomous-drone-for-dynamic-smoke-plume-tracking.git
@@ -17,22 +17,23 @@ git clone https://github.umn.edu/HongFlowFieldImagingLab/autonomous-drone-for-dy
 ### Run install script:
 
 The install script is configured to install ROS Melodic and the dependencies needed to run yolov8 and Stable Baselines3 PPO.
+Have to run this install scripts multiple times after the system automatically gets rebooted untill it shows "Completing Installation of Dependencies ..." on the terminal
 
 ```bash
-cd ~/autonomous-drone/src/autonomous-drone-for-dynamic-smoke-plume-tracking/install_scripts
-bash install_dependencies.sh
+cd ~/gaia-autonomous-drone/src/autonomous-drone-for-dynamic-smoke-plume-tracking/install_scripts
+bash install_jetson_dependencies.sh
 ```
 
-### Finalize installation:
+### Building the ROS Package:
 To finalize the installation, initialize and build the ROS package:
 ```bash
 source ~/.bashrc
-cd ~/autonomous-drone
+cd ~/gaia-autonomous-drone
 catkin init
 catkin build
 ```
 
-## Running Feedback Control:
+## Running Smoke Trackin Controller:
 Quick start added some lines to ~/.bashrc to complete the sourcing of the repo and adding write permissions to the appropriate serial port for communicating with the drone via Mavros (drone and wiring configuration covered in Appendix A). This means the code is ready to run upon opening the terminal and can simply be launched with a single command, e.g.:
 ```bash
 roslaunch GAIA-drone-control track.launch
