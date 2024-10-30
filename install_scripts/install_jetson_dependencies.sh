@@ -61,9 +61,9 @@ if [ "$(get_checkpoint)" == "STEP_1_DONE" ]; then
     fi
 
     # Convenience source for the gaia-autonomous-drone-ws, if you are working with other workspaces as well you may want to drop this
-    if ! grep -Fxq "source ~/gaia-autonomous-drone/devel/setup.bash" ~/.bashrc; 
-        then echo "source ~/gaia-autonomous-drone/devel/setup.bash" >> ~/.bashrc; 
-    fi
+    # if ! grep -Fxq "source ~/gaia-autonomous-drone/devel/setup.bash" ~/.bashrc; 
+    #    then echo "source ~/gaia-autonomous-drone/devel/setup.bash" >> ~/.bashrc; 
+    # fi
 
     # Convenience call to change permission on /dev/ttyACM0 so this command does not have to be run before launching Mavros
     if ! grep -Fxq "sudo chmod 777 /dev/ttyACM0" ~/.bashrc; 

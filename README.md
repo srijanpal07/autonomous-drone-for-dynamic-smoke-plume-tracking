@@ -35,24 +35,37 @@ source ~/.bashrc
 cd ~/gaia-autonomous-drone
 catkin init
 catkin build
+echo "source ~/gaia-autonomous-drone/devel/setup.bash" >> ~/.bashrc
+source ~/.bashrc
 ```
 
 ## Running Smoke Tracking Controller:
-Quick start added some lines to ~/.bashrc to complete the sourcing of the repo and adding write permissions to the appropriate serial port for communicating with the drone via Mavros (drone and wiring configuration covered in Appendix A). This means the code is ready to run upon opening the terminal and can simply be launched with a single command, e.g.:
+"Quick start" added some lines to "~/.bashrc" to complete the sourcing of the repo and adding write permissions to the appropriate serial port for communicating with the drone Pixhawk via Mavros. This means the code is ready to run upon opening the terminal and can simply be launched with a single command, e.g.:
 ```bash
-roslaunch autonomous-drone-for-dynamic-smoke-plume-tracking track.launch
+roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_jetson.launch
 ```
+
+By deafult, the controller node runs the PID (Proportional–Integral–Derivative) controller. To change to the DRL (Deep Reinforcement Learning) controller, the controller has to passed as an argument.
+
+For PID controller:
+```bash
+roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_jetson.launch controller:=PID
+```
+For DRL controller:
+```bash
+roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_jetson.launch controller:=DRL
+```
+
 To troubleshoot, run each individual node scripts using rosrun command, each in a separate terminal.
 
 ```bash
-roslaunch GAIA-drone-control mavros-telem-drone.launch
-rosrun GAIA-drone-control cameranode_jetson.py
-rosrun GAIA-drone-control feedbackcontrolnode.py
-rosrun GAIA-drone-control detectionnode_trt.py
-rosrun GAIA-drone-control opticalflownode.py
+roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking mavros-telem-drone.launch
+rosrun autonomous_drone_for_dynamic_smoke_plume_tracking camera_node_jetson.py
+rosrun autonomous_drone_for_dynamic_smoke_plume_tracking segmentation_node.py
+rosrun autonomous_drone_for_dynamic_smoke_plume_tracking controller_node.py
 ```
 
-To end collection you can either kill execution in each terminal with Ctrl-C if they are executing locally, or to kill all the terminals altogether or in case if the tasks went to the background (as when starting via ssh then disconnecting) use:
+To end, you can either kill execution in each terminal with Ctrl-C, or to kill all the terminals altogether or in case if the tasks went to the background (as when starting via ssh then disconnecting) use:
 
 ```bash
 rosnode kill --all
