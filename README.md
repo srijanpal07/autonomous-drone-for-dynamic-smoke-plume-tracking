@@ -25,6 +25,9 @@ cd ~/gaia-autonomous-drone/src/autonomous-drone-for-dynamic-smoke-plume-tracking
 bash install_jetson_dependencies.sh
 ```
 
+To further optimize RAM space to run deep learning and deep reinforcement learning models, follow the additional steps mentioned in this link - https://www.jetson-ai-lab.com/tips_ram-optimization.html
+
+
 ### Building the ROS Package:
 To finalize the installation, initialize and build the ROS package:
 ```bash

@@ -186,13 +186,15 @@ if [ "$(get_checkpoint)" == "STEP_4_DONE" ]; then
     $py_env -m pip install pandas
     $py_env -m pip install seaborn
     $py_env -m pip install thop
+    
+    $py_env -m pip install stable-baselines3[extra]
 
     set_checkpoint "STEP_5_DONE"
 fi
 
 
 
-# ============================================== To enable maximum performance on the NVIDIA Jetson running YOLOv8 ============================================== #
+# ============================================== To enable maximum performance on the NVIDIA Jetson for running YOLOv8 ============================================== #
 
 # Step 6: Enabling maximum power in Jetson
 if [ "$(get_checkpoint)" == "STEP_5_DONE" ]; then
@@ -224,4 +226,25 @@ if [ "$(get_checkpoint)" == "REBOOT_2_DONE" ]; then
     set_checkpoint "STEP_6_DONE"
 fi
 
-# ============================================== To enable maximum performance on the NVIDIA Jetson running YOLOv8 ============================================== #
+# ============================================== Completed enabling maximum performance on the NVIDIA Jetson ============================================== #
+
+
+
+
+# ============================================== Mounting Swap ============================================== #
+
+# Instructions - https://www.jetson-ai-lab.com/tips_ram-optimization.html
+# It's advisable to mount SWAP (typically correlated with the amount of memory in the board). Run these commands to disable ZRAM and create a swap file:
+# If you have NVMe SSD storage available, it's preferred to allocate the swap file on the NVMe SSD.
+
+sudo systemctl disable nvzramconfig
+sudo fallocate -l 16G /ssd/16GB.swap
+sudo mkswap /ssd/16GB.swap
+sudo swapon /ssd/16GB.swap
+
+# Then add the following line to the end of /etc/fstab to make the change persistent:
+/ssd/16GB.swap  none  swap  sw 0  0
+
+# ============================================== Completed Mounting Swap ============================================== #
+
+
