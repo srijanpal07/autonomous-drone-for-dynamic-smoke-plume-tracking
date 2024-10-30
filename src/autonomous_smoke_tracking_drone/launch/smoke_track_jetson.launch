@@ -1,0 +1,11 @@
+<launch>
+
+	<node name="cameranode" pkg="autonomous_drone_for_dynamic_smoke_plume_tracking" type="camera_node_jetson.py" output="screen"/>
+
+	<node name="segmentationnode" pkg="autonomous_drone_for_dynamic_smoke_plume_tracking" type="segmentation_node.py" output="screen"/>
+
+	<node name="controllernode" pkg=autonomous_drone_for_dynamic_smoke_plume_tracking" type="inference_node.py" output="screen"/>
+
+	<include file="$(find autonomous_drone_for_dynamic_smoke_plume_tracking)/launch/mavros-telem-drone.launch"></include>
+
+</launch>

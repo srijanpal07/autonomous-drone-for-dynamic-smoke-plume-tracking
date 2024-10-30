@@ -1,0 +1,13 @@
+<launch>
+
+	<node name="cameranode" pkg="GAIA-drone-control" type="cameranode.py" output="screen"/>
+
+	<node name="detectionnode_trt" pkg="GAIA-drone-control" type="detectionnode_trt.py" output="screen"/>
+
+	<node name="flownode" pkg="GAIA-drone-control" type="opticalflownode.py" output="screen"/>
+
+	<node name="feedbackcontrolnode" pkg="GAIA-drone-control" type="feedbackcontrolnode.py" output="screen"/>
+
+	<include file="$(find GAIA-drone-control)/launch/mavros-telem-drone.launch"></include>
+
+</launch>

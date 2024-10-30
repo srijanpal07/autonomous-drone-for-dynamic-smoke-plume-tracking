@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(autonomous_smoke_tracking_drone)
+project(autonomous_drone_for_dynamic_smoke_plume_tracking)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)

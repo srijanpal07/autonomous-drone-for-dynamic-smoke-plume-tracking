@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>autonomous_smoke_tracking_drone</name>
+  <name>autonomous_drone_for_dynamic_smoke_plume_tracking</name>
   <version>1.0.0</version>
   <description>The Autonmous Drone for Dynamic Smoke Tracking project package</description>
 
