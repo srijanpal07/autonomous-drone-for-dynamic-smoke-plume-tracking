@@ -17,10 +17,8 @@ from mavros_msgs.msg import State
 from std_msgs.msg import Float64, String
 from nav_msgs.msg import Odometry
 
-import airsim
-from airsim_ros_pkgs.msg import GimbalAngleEulerCmd
-
-
+# import airsim
+# from airsim_ros_pkgs.msg import GimbalAngleEulerCmd
 
 
 
@@ -39,14 +37,14 @@ FSCAN_SPEED = 0.3
 MIN_HEIGHT = 0.7
 
 PRINT_STATE = True
-DRONE = 'drone2'
+# DRONE = 'drone1'
 
 
 
 class DroneEnv(gym.Env):
     """ Class representing the drone environment"""
 
-    def __init__(self, execution='SIM', training=True):
+    def __init__(self, drone='drone1', execution='SIM', controller='PID', training=True):
         super(DroneEnv, self).__init__()
         self.observation_space = spaces.Box(low=0, high=255, shape=(320, 320, 1), dtype=np.uint8)
 
@@ -56,7 +54,12 @@ class DroneEnv(gym.Env):
         # 2:hard-left,            6:down,                    5: hard-right
         self.action_space = spaces.Discrete(7)
 
+        self.drone = drone
         self.execution = execution
+        self.controller = controller
+
+        print(f"# --- Drone : {self.drone} --- Executing in : {self.execution} --- Controller : {self.controller} --- #")
+
         if self.execution == 'SIM':
             print("Executing in Simulation")
             import airsim
@@ -65,8 +68,10 @@ class DroneEnv(gym.Env):
         self.training = training
         if self.training:
             self.episode_count = 0
+
         self.print_state = True
         self.print_speed = False
+
         self.guided_mode = False
         self.local_x = self.local_y = self.local_z = self.drone_yaw = 0
         self.gps_t = 0
@@ -92,31 +97,31 @@ class DroneEnv(gym.Env):
         self.local_alt = None
         self.armed = False
 
-        print("Initializing DRL Controller node...")
-        rospy.init_node('drl_controller_node', anonymous=False)
-        self.twist_pub = rospy.Publisher(f'/{DRONE}/mavros/setpoint_position/local',
+        print("Initializing Controller node...")
+        rospy.init_node('controller_node', anonymous=False)
+        self.twist_pub = rospy.Publisher(f'/{self.drone}/mavros/setpoint_position/local',
                                          PoseStamped, queue_size=1)
 
         print("Initializing Drone ...")
 
         # Initialize subscribers to mavros topics
-        rospy.Subscriber(f'/{DRONE}/mavros/state', State, self.state_callback)
-        rospy.Subscriber(f'/{DRONE}/mavros/local_position/pose', PoseStamped, self.pose_callback)
-        rospy.Subscriber(f'/{DRONE}/mavros/time_reference', TimeReference, self.time_callback)
-        rospy.Subscriber(f'/{DRONE}/mavros/global_position/global', NavSatFix, self.gps_callback)
-        rospy.Subscriber(f'/{DRONE}/mavros/global_position/rel_alt', Float64, self.rel_alt_callback)
-        rospy.Subscriber(f'/{DRONE}/mavros/global_position/compass_hdg', Float64, self.compass_hdg_callback)
-        rospy.Subscriber(f'/{DRONE}/mavros/global_position/local', Odometry, self.local_alt_callback)
+        rospy.Subscriber(f'/{self.drone}/mavros/state', State, self.state_callback)
+        rospy.Subscriber(f'/{self.drone}/mavros/local_position/pose', PoseStamped, self.pose_callback)
+        rospy.Subscriber(f'/{self.drone}/mavros/time_reference', TimeReference, self.time_callback)
+        rospy.Subscriber(f'/{self.drone}/mavros/global_position/global', NavSatFix, self.gps_callback)
+        rospy.Subscriber(f'/{self.drone}/mavros/global_position/rel_alt', Float64, self.rel_alt_callback)
+        rospy.Subscriber(f'/{self.drone}/mavros/global_position/compass_hdg', Float64, self.compass_hdg_callback)
+        rospy.Subscriber(f'/{self.drone}/mavros/global_position/local', Odometry, self.local_alt_callback)
 
         # Initialize subscribers to image, bounding box and segmentation topics
-        rospy.Subscriber(f'/{DRONE}/bounding_box', Detection2D, self.boundingbox_callback)
+        rospy.Subscriber(f'/{self.drone}/bounding_box', Detection2D, self.boundingbox_callback)
         rospy.Subscriber('/segmentation_box', Detection2D, self.segmentation_callback)
         print("\n-------------------------- Subscribers Initialized --------------------------")
 
         # Initialize Publishers
-        self.guided_vel_twistpub = rospy.Publisher(f'/{DRONE}/mavros/setpoint_velocity/cmd_vel_unstamped',
+        self.guided_vel_twistpub = rospy.Publisher(f'/{self.drone}/mavros/setpoint_velocity/cmd_vel_unstamped',
                                    Twist, queue_size=1)
-        self.smoketrack_status_pub = rospy.Publisher(f'/{DRONE}/smoketrack_status', String, queue_size=1)
+        self.smoketrack_status_pub = rospy.Publisher(f'/{self.drone}/smoketrack_status', String, queue_size=1)
         if execution == 'SIM':
             self.airsim_gimbal = rospy.Publisher('/airsim_node/gimbal_angle_euler_cmd',
                                 GimbalAngleEulerCmd, queue_size=1)
@@ -135,6 +140,7 @@ class DroneEnv(gym.Env):
         """
         Initial drone setup method
         """
+
         print("\n---------------------------- Initializing Setup ----------------------------")
         
         if self.execution == 'SIM':
@@ -145,7 +151,7 @@ class DroneEnv(gym.Env):
             takeoff.longitude = -122.140165
             takeoff.altitude = -10
             print("Taking off", end ="->")
-            fly = rospy.ServiceProxy(f'/{DRONE}/mavros/cmd/takeoff', CommandTOL)
+            fly = rospy.ServiceProxy(f'/{self.drone}/mavros/cmd/takeoff', CommandTOL)
             resp = fly(takeoff)
             print(resp)
             time.sleep(2)
@@ -154,7 +160,7 @@ class DroneEnv(gym.Env):
             arm = CommandBoolRequest()
             arm.value = True
             print("Arming - 1st attempt", end ="->")
-            arming = rospy.ServiceProxy(f'/{DRONE}/mavros/cmd/arming', CommandBool)
+            arming = rospy.ServiceProxy(f'/{slef.drone}/mavros/cmd/arming', CommandBool)
             resp = arming(arm)
             print(resp)
             time.sleep(5)
@@ -171,7 +177,9 @@ class DroneEnv(gym.Env):
 
 
     def reset_position(self):
-        """ resetting drone position to detect smoke from top """
+        """
+        Resetting drone position to detect smoke from top
+        """
 
         print("\nResetting drone position to detect smoke from top ... ")
 
@@ -276,6 +284,7 @@ class DroneEnv(gym.Env):
         pitchcommand - Pitch PWM. 1000 is straight ahead (0 deg) and 1900 is straight down (-90 deg) 
         yawcommand - Yaw PWM. 1000 is -45 deg and 2000 is 45 deg
         """
+
         if self.execution == 'SIM':
             airsim_yaw = math.degrees(self.drone_yaw)
             if airsim_yaw < 0:
@@ -284,8 +293,8 @@ class DroneEnv(gym.Env):
             gimbal_pitch = (1000 - pitchcommand) / 10
             gimbal_yaw = ((AIRSIM_GIMBAL_CENTER_YAW - yawcommand) * 45) / 500
             cmd = GimbalAngleEulerCmd()
-            cmd.camera_name = f"{DRONE}_front_center"
-            cmd.vehicle_name = DRONE
+            cmd.camera_name = f"{self.drone}_front_center"
+            cmd.vehicle_name = self.drone
             cmd.pitch = gimbal_pitch
             cmd.yaw = gimbal_yaw - airsim_yaw + 90
 
@@ -300,6 +309,7 @@ class DroneEnv(gym.Env):
         """
         check if drone FCU is in LOITER or OFFBOARD mode
         """
+
         if self.execution == 'SIM':
             if state.armed:
                 self.armed = True
@@ -336,12 +346,13 @@ class DroneEnv(gym.Env):
         Used in Simulation to set 'OFFBOARD' mode 
         so that drone uses mavros commands for navigation
         """
+
         if self.execution == 'SIM':
             mode = SetModeRequest()
             mode.base_mode = 0
             mode.custom_mode = "OFFBOARD"
             print("Setting up...", end ="->")
-            setm = rospy.ServiceProxy(f'/{DRONE}/mavros/set_mode', SetMode)
+            setm = rospy.ServiceProxy(f'/{self.drone}/mavros/set_mode', SetMode)
             resp = setm(mode)
             print(f' OFFBOARD MODE -> {resp}')
 
@@ -354,6 +365,7 @@ class DroneEnv(gym.Env):
         pitch is rotation around y in radians (counterclockwise)
         yaw is rotation around z in radians (counterclockwise)
         """
+
         t0 = +2.0 * (w * x + y * z)
         t1 = +1.0 - 2.0 * (x * x + y * y)
         roll_x = math.atan2(t0, t1)
@@ -376,6 +388,7 @@ class DroneEnv(gym.Env):
         Convert Euler angles to quaternion and 
         Calculate quaternion components w, x, y, z
         """
+
         # Convert Euler angles to quaternion
         cy = math.cos(yaw * 0.5)
         sy = math.sin(yaw * 0.5)
@@ -407,10 +420,12 @@ class DroneEnv(gym.Env):
         self.drone_yaw = y
 
 
+
     def local_alt_callback(self, gpsglobal):
         """
         local altitude callback
         """
+
         self.local_alt = gpsglobal.pose.pose.position.z
         # if self.execution != 'SIM':
         if not self.home_local_alt_received and self.armed:
@@ -481,7 +496,7 @@ class DroneEnv(gym.Env):
         """
 
         self.size_segment = box.bbox.size_x
-        #print(f"size of the segment: {self.size_segment}")
+        # print(f"size of the segment: {self.size_segment}")
 
         # positive errors give right, up
         if box.bbox.center.x != -1 and box.bbox.size_x > 200:
@@ -583,7 +598,6 @@ class DroneEnv(gym.Env):
                 self.set_alt_reached = True
                 print(f"\nSet point altitude reached! drone_yaw: {self.drone_yaw}\n")
                 self.move_airsim_gimbal(pitchcommand = 1000, yawcommand = 1500)
-                # self.move_airsim_gimbal(pitchcommand = 1000, yawcommand = 1500)
             else:
                 fspeed = hspeed = 0
                 vspeed = -5
@@ -597,12 +611,19 @@ class DroneEnv(gym.Env):
         Function to make the drone move
         """
 
-        # bound controls to ranges
+        # Bound velocities to ranges
         # lower bound first, upper bound second
         for_speed = min(max(for_speed, -LIMIT_SPEED), LIMIT_SPEED)
         hor_speed = min(max(hor_speed, -LIMIT_SPEED), LIMIT_SPEED)
         ver_speed = min(max(ver_speed, -LIMIT_V_SPEED), LIMIT_V_SPEED)
         yaw_speed = min(max(yaw_speed, -LIMIT_YAWSPEED), LIMIT_YAWSPEED)
+
+        # If the drone goes too close to the ground vertical speed goes to 0 or positive
+        if (self.local_alt and self.home_local_alt) is not None:
+            if self.local_alt - self.home_local_alt < MIN_HEIGHT:
+                print("\n!!! Below min_height !!!\n")
+                if ver_speed < 0:
+                    ver_speed = 0
 
         self.twistmsg.linear.x = for_speed
         self.twistmsg.linear.y = hor_speed
@@ -618,12 +639,7 @@ class DroneEnv(gym.Env):
                     f"| vspeed: {ver_speed: .3f}")
 
 
-        # If the drone is too close to the ground
-        if (self.local_alt and self.home_local_alt) is not None:
-            if self.local_alt - self.home_local_alt < MIN_HEIGHT:
-                print("\n!!! Below min_height !!!\n")
-                ver_speed = 0
-                self.twistmsg.linear.z = ver_speed
+
 
         # publishing
         self.guided_vel_twistpub.publish(self.twistmsg)
@@ -663,22 +679,28 @@ class DroneEnv(gym.Env):
             print("[DRL ACTION] : Move down")
 
 
-        # if PID is used insted of DRL output
+        # PID controller is used insted of DRL at each 5 episodes 
+        # To make the drone intentionally stay within the smoke during DRL training
         if self.training:
             hspeed_pid, vspeed_pid = (self.horizontalerror_segment*-5), (self.verticalerror_segment*7.5)
-            print(f"[PID ACTION] : (vspeed, hspeed) = ({vspeed_pid: .3f}, {hspeed_pid: .3f})")
+            print(f"[PID ACTIONS] : (vspeed, hspeed) = ({vspeed_pid: .3f}, {hspeed_pid: .3f})")
             if self.episode_count%5==0:
-                print("Drone is controlled Using PID")
+                print(" ------ Drone is controlled using 'PID' controller ------ ")
                 hspeed, vspeed = hspeed_pid, vspeed_pid
+        
 
-        hspeed_pid, vspeed_pid = (self.horizontalerror_segment*-3), (self.verticalerror_segment*5)
-        print(f"[PID ACTION] : (vspeed, hspeed) = ({vspeed_pid: .3f}, {hspeed_pid: .3f})")
-        print("Drone is controlled Using PID")
-        hspeed, vspeed = hspeed_pid, vspeed_pid
+        if self.controller == 'PID':
+            print(" ------ Drone is controlled using 'PID' controller ------ ")
+            hspeed_pid, vspeed_pid = (self.horizontalerror_segment*-3), (self.verticalerror_segment*5)
+            print(f"[PID ACTIONS] : (vspeed, hspeed) = ({vspeed_pid: .3f}, {hspeed_pid: .3f})")
+            hspeed, vspeed = hspeed_pid, vspeed_pid
+        else:
+            print(" ------ Drone is controlled using 'DRL' controller ------ ")
+            print(f"[DRL ACTIONS] : (vspeed, hspeed) = ({vspeed: .3f}, {hspeed: .3f})")
 
         self.move_drone(for_speed=fspeed, ver_speed=vspeed, hor_speed=hspeed)
 
-        # calculate reward and done
+        # Calculate reward and done condition
         reward = self.calculate_reward(action)
 
         return reward
@@ -689,6 +711,7 @@ class DroneEnv(gym.Env):
         """
         Calculate reward for predicted movements of the DRL controller
         """
+
         # Action Space:
         # 2:hard-left,            1:up,                      5: hard-right
         # 2:hard-left,  3: left,  0:No movement,  4: right,  5: hard-right
@@ -761,7 +784,6 @@ class DroneEnv(gym.Env):
                 reward = 1
             else:
                 reward = -1
-
 
         print(f"[Reward] reward: {reward} | ",
               f"centroid (hor, ver): ({self.horizontalerror_segment: .5f}, ",

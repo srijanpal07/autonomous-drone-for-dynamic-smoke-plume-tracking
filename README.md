@@ -24,7 +24,7 @@ cd ~/gaia-autonomous-drone/src/autonomous-drone-for-dynamic-smoke-plume-tracking
 bash install_jetson_dependencies.sh
 ```
 
-To further optimize RAM for running deep learning and deep reinforcement learning models, refer to the additional steps outlined in this link - https://www.jetson-ai-lab.com/tips_ram-optimization.html
+To further optimize RAM for running deep learning and deep reinforcement learning models on Jetson, refer to the additional steps outlined in this link - https://www.jetson-ai-lab.com/tips_ram-optimization.html
 
 
 ### Building the ROS Package:
@@ -39,20 +39,35 @@ source ~/.bashrc
 ```
 
 ## Running Smoke Tracking Controller:
-The "Quick Start" setup automatically adds necessary lines to ~/.bashrc to source the repository and grant write permissions to the required serial port for communicating with the Pixhawk through MAVROS. With this configuration, the code is ready to run as soon as a terminal opens. You can start it with a single command:
+The "Quick Start" setup automatically adds necessary lines to ~/.bashrc to source the repository and grant write permissions to the required serial port for communicating with the Pixhawk through MAVROS. With this configuration, the code is ready to run as soon as a terminal opens. 
+
+### starting the Controller:
+To initiate smoke tracking, use the following command:
 ```bash
-roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_jetson.launch
+roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_jetson.launch execution:=DEPLOY
 ```
 
-By default, the controller node operates with the PID (Proportional–Integral–Derivative) controller. To switch to the DRL (Deep Reinforcement Learning) controller, specify the controller type as an argument.
+### Configurable Parameters:
+Three parameters can be specified when launching the controller to tailor the setup to specific needs:
 
-For the PID controller:
+* **'drone'** : Specifies the MAVROS namespace of the drone. * **Default**: `drone1` * **Usage**: Use `drone:=<namespace>` if the namespace is different from `drone1`.
+
+[By default, the namespace of the drone is mentioned as 'drone1', specify the namespace of the drone if it is something else.]
+
+'execution' ->  Option ['SIM' or 'DEPLOY'] to choose between code execution is done in simulation or in Jetson for deployment. [By default, the execution is set to 'SIM' (Simulation). To switch to 'DEPLOY' (Deployment in Jetson), specify the execution type as an argument.]
+
+
+'controller' -> Option ['PID' or 'DRL'] to choose between controller type to use [By default, the controller node operates with the PID (Proportional–Integral–Derivative) controller. To switch to the DRL (Deep Reinforcement Learning) controller, specify the controller type as an argument.]
+
+Example - 
+
+For executing in Jetson on 'drone1' with PID controller:
 ```bash
-roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_jetson.launch execution:=DEPLOY controller:=PID
+roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_jetson.launch drone:=drone1 execution:=DEPLOY controller:=PID
 ```
-For the DRL controller:
+For executing in Jetson on 'drone2' with DRL controller:
 ```bash
-roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_jetson.launch execution:=DEPLOY controller:=DRL
+roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_jetson.launch drone:=drone2 execution:=DEPLOY controller:=DRL
 ```
 
 To troubleshoot, run this bash script :

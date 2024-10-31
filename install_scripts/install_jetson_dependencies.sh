@@ -188,6 +188,7 @@ if [ "$(get_checkpoint)" == "STEP_4_DONE" ]; then
     $py_env -m pip install thop
     
     $py_env -m pip install stable-baselines3[extra]
+    $py_env -m pip install gymnasium
 
     sudo apt install terminator
 

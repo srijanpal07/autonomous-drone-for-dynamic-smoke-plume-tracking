@@ -1,20 +1,20 @@
 <launch>
 
+	<arg name="drone" default="drone1" />
+	<arg name="execution" default="SIM" />
 	<arg name="controller" default="PID" />
 
-	<arg name="execution" default="SIM" />
-
-	<include file="$(find autonomous_drone_for_dynamic_smoke_plume_tracking)/launch/mavros-telem-drone.launch"></include>
+	<include file="$(find autonomous_drone_for_dynamic_smoke_plume_tracking)/launch/mavros-telem-drone.launch"/>
 
 	<node name="cameranode" pkg="autonomous_drone_for_dynamic_smoke_plume_tracking" type="simCam_node_1.py" output="screen"/>
 
 	<node name="segmentationnode" pkg="autonomous_drone_for_dynamic_smoke_plume_tracking" type="segmentation_node.py" output="screen"/>
 
 	<node name="controllernode" pkg="autonomous_drone_for_dynamic_smoke_plume_tracking" type="controller_node.py" output="screen">
-	  <param name="controller" value="$(arg controller)" />
-	  <param name="execution" value="$(arg execution)" />
+		<param name="drone" value="$(arg drone)" />
+		<param name="execution" value="$(arg execution)" />
+		<param name="controller" value="$(arg controller)" />
+		
     </node>
-
-	
 
 </launch>
