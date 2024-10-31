@@ -18,7 +18,7 @@ git clone https://github.umn.edu/HongFlowFieldImagingLab/autonomous-drone-for-dy
 
 The install script is configured to install ROS Melodic and necessary dependencies for running YOLOv8 and Stable Baselines3 PPO.
 
-May need to run the installation script multiple times after the system automatically reboots until you see the message "Completing Installation of Dependencies ..." in the terminal. To execute the script, use the following commands:
+May need to run the installation script multiple times after the system automatically reboots until you see the message `Completing Installation of Dependencies ...` in the terminal. To execute the script, use the following commands:
 ```bash
 cd ~/gaia-autonomous-drone/src/autonomous-drone-for-dynamic-smoke-plume-tracking/install_scripts
 bash install_jetson_dependencies.sh
@@ -39,18 +39,20 @@ source ~/.bashrc
 ```
 
 ## Running Smoke Tracking Controller:
-The "Quick Start" setup automatically adds necessary lines to ~/.bashrc to source the repository and grant write permissions to the required serial port for communicating with the Pixhawk through MAVROS. With this configuration, the code is ready to run as soon as a terminal opens. 
+The "Quick Start" setup automatically adds necessary lines to `~/.bashrc` to source the repository and grant write permissions to the required serial port for communicating with the Pixhawk through MAVROS. With this configuration, the code is ready to run as soon as a terminal opens. 
 
-### starting the Controller:
+### Starting the controller:
 To initiate smoke tracking, use the following command:
 ```bash
 roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_jetson.launch execution:=DEPLOY
 ```
 
-### Configurable Parameters:
+### Configurable parameters:
 Three parameters can be specified when launching the controller to tailor the setup to specific needs:
 
-* **'drone'** : Specifies the MAVROS namespace of the drone. * **Default**: `drone1` * **Usage**: Use `drone:=<namespace>` if the namespace is different from `drone1`.
+* **'drone'** : Specifies the MAVROS namespace of the drone. 
+* **Default**: `drone1` 
+* **Usage**: Use `drone:=<namespace>` if the namespace is different from `drone1`.
 
 [By default, the namespace of the drone is mentioned as 'drone1', specify the namespace of the drone if it is something else.]
 
