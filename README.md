@@ -16,9 +16,9 @@ git clone https://github.umn.edu/HongFlowFieldImagingLab/autonomous-drone-for-dy
 
 ### Run install script:
 
-The install script is configured to install ROS Melodic and necessary dependencies for running YOLOv8 and Stable Baselines3 PPO.
+The install script is configured to install ROS Melodic and necessary dependencies for running YOLOv8 and Stable Baselines3 PPO. May need to run the installation script multiple times after the system automatically reboots until you see the message `Completing Installation of Dependencies ...` in the terminal. 
 
-May need to run the installation script multiple times after the system automatically reboots until you see the message `Completing Installation of Dependencies ...` in the terminal. To execute the script, use the following commands:
+To execute the script, use the following commands:
 ```bash
 cd ~/gaia-autonomous-drone/src/autonomous-drone-for-dynamic-smoke-plume-tracking/install_scripts
 bash install_jetson_dependencies.sh
@@ -54,20 +54,23 @@ Three parameters can be specified when launching the controller to tailor the se
     * **Default**: `drone1` 
     * **Usage**: Use `drone:=<namespace>` if the namespace is different from `drone1`.
 
-[By default, the namespace of the drone is mentioned as 'drone1', specify the namespace of the drone if it is something else.]
+* **'execution'** : Specifies the execution environment.
+    * **Options**: `SIM` (Simulation) | `DEPLOY` (Jetson Deployment)
+    * **Default**: `SIM` 
+    * **Usage**: Set `execution:=DEPLOY` for real-world deployment on Jetson.
 
-'execution' ->  Option ['SIM' or 'DEPLOY'] to choose between code execution is done in simulation or in Jetson for deployment. [By default, the execution is set to 'SIM' (Simulation). To switch to 'DEPLOY' (Deployment in Jetson), specify the execution type as an argument.]
+* **'controller'** : Selects the controller type.
+    * **Options**: `PID` (Proportional–Integral–Derivative Controller) | `DRL` (Deep Reinforcement Learning Controller)
+    * **Default**: `PID` 
+    * **Usage**: Set `controller:=DRL` to use the DRL-based controller.
 
+Example Commands - 
 
-'controller' -> Option ['PID' or 'DRL'] to choose between controller type to use [By default, the controller node operates with the PID (Proportional–Integral–Derivative) controller. To switch to the DRL (Deep Reinforcement Learning) controller, specify the controller type as an argument.]
-
-Example - 
-
-For executing in Jetson on 'drone1' with PID controller:
+For **executing in Jetson** on `drone1` with `PID` controller:
 ```bash
 roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_jetson.launch drone:=drone1 execution:=DEPLOY controller:=PID
 ```
-For executing in Jetson on 'drone2' with DRL controller:
+For **executing in Jetson** on `drone2` with `DRL` controller:
 ```bash
 roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_jetson.launch drone:=drone2 execution:=DEPLOY controller:=DRL
 ```
