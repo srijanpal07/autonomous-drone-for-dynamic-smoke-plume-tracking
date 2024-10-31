@@ -75,7 +75,8 @@ For **executing in Jetson** on `drone2` with `DRL` controller:
 roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_jetson.launch drone:=drone2 execution:=DEPLOY controller:=DRL
 ```
 
-To troubleshoot, run this bash script :
+### Troubleshoot:
+Run this bash script :
 ```bash
 cd ~/gaia-autonomous-drone//src/autonomous-drone-for-dynamic-smoke-plume-tracking/launch
 chmod +x smoke_track_jetson.sh
