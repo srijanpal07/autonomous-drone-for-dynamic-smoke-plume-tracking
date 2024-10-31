@@ -174,7 +174,7 @@ fi
 
 
 
-# Step 5: Install Additional Dependencies
+# Step 5: Install additional dependencies
 if [ "$(get_checkpoint)" == "STEP_4_DONE" ]; then
     echo "Installing Additional Dependencies..."
     $py_env -m pip install opencv-python
@@ -188,6 +188,8 @@ if [ "$(get_checkpoint)" == "STEP_4_DONE" ]; then
     $py_env -m pip install thop
     
     $py_env -m pip install stable-baselines3[extra]
+
+    sudo apt install terminator
 
     set_checkpoint "STEP_5_DONE"
 fi
@@ -205,7 +207,7 @@ if [ "$(get_checkpoint)" == "STEP_5_DONE" ]; then
     # Enable Jetson Clocks
     sudo jetson_clocks
 
-    # Install Jetson Stats Application
+    # Install Jetson Stats application
     sudo apt update
     sudo pip install jetson-stats
 

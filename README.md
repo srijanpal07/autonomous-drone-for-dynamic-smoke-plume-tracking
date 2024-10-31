@@ -48,24 +48,22 @@ By default, the controller node operates with the PID (Proportional–Integral�
 
 For the PID controller:
 ```bash
-roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_jetson.launch controller:=PID
+roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_jetson.launch execution:=DEPLOY controller:=PID
 ```
 For the DRL controller:
 ```bash
-roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_jetson.launch controller:=DRL
+roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_jetson.launch execution:=DEPLOY controller:=DRL
 ```
 
-To troubleshoot, you can run each node individually in separate terminals using the rosrun command:
-
+To troubleshoot, run this bash script :
 ```bash
-roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking mavros-telem-drone.launch
-rosrun autonomous_drone_for_dynamic_smoke_plume_tracking camera_node_jetson.py
-rosrun autonomous_drone_for_dynamic_smoke_plume_tracking segmentation_node.py
-rosrun autonomous_drone_for_dynamic_smoke_plume_tracking controller_node.py
+cd ~/gaia-autonomous-drone//src/autonomous-drone-for-dynamic-smoke-plume-tracking/launch
+chmod +x smoke_track_jetson.sh
+./smoke_track_jetson.sh
 ```
+This should run all the nodes in seprate terminals.
 
 To stop execution, you can either press Ctrl-C in each terminal or, to terminate all nodes at once (useful if they’ve gone to the background, such as when started over SSH), run:
-
 ```bash
 rosnode kill --all
 ```
