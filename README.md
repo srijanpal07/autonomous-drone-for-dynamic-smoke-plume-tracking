@@ -24,7 +24,7 @@ cd ~/gaia-autonomous-drone/src/autonomous-drone-for-dynamic-smoke-plume-tracking
 bash install_jetson_dependencies.sh
 ```
 
-To further optimize RAM for running deep learning and deep reinforcement learning models on Jetson, refer to the additional steps outlined in this link - https://www.jetson-ai-lab.com/tips_ram-optimization.html
+To further optimize RAM for running deep learning and deep reinforcement learning models on Jetson, refer to the additional steps outlined in this [link](https://www.jetson-ai-lab.com/tips_ram-optimization.html)
 
 
 ### Building the ROS Package:
@@ -51,8 +51,8 @@ roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_jetson.l
 Three parameters can be specified when launching the controller to tailor the setup to specific needs:
 
 * **'drone'** : Specifies the MAVROS namespace of the drone. 
-* **Default**: `drone1` 
-* **Usage**: Use `drone:=<namespace>` if the namespace is different from `drone1`.
+    * **Default**: `drone1` 
+    * **Usage**: Use `drone:=<namespace>` if the namespace is different from `drone1`.
 
 [By default, the namespace of the drone is mentioned as 'drone1', specify the namespace of the drone if it is something else.]
 
