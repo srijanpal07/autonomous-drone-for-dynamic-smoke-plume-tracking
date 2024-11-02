@@ -93,7 +93,7 @@ This command will safely end all running ROS nodes.
 
 ## Drone Hardware Configuartions
 
-This drone configuration closely follows the standard [GAIA drone setup](https://github.umn.edu/HongFlowFieldImagingLab/GAIA-drone-control/tree/peter-server) and is based on the [Holybro S500 v2 development kit](ttps://holybro.com/collections/s500/products/s500-v2-development-kit). The following upgrades enhance real-time performance and adaptability for dynamic smoke tracking:
+The drone configuration follows the [GAIA drone setup](https://github.umn.edu/HongFlowFieldImagingLab/GAIA-drone-control/tree/peter-server), which is based on the [Holybro S500 v2 development kit](https://holybro.com/collections/s500/products/s500-v2-development-kit). The following upgrades enhance performance for dynamic smoke tracking:
 
 ### Hardware Upgrades:
 
