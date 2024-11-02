@@ -114,6 +114,8 @@ The drone configuration follows the [GAIA drone setup](https://github.umn.edu/Ho
 
 ![Drone Hardware](images/drone_hardware.png)
 
+<img src="images/drone_hardware.png" alt="Drone Hardware" width="300"/>
+
 
 ## Unreal Engine 5 Simulation
 
