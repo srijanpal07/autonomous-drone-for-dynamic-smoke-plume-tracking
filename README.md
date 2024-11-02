@@ -85,9 +85,8 @@ chmod +x smoke_track_jetson.sh
 ```
 
 To safely stop execution:
-
-	* Press Ctrl-C in each terminal window individually, or 
-	* Terminate all nodes simultaneoulsy with (recommended if any node has been sent to the background):
+1. Press Ctrl-C in each terminal window individually, or 
+2. Terminate all nodes simultaneoulsy with (recommended if any node has been sent to the background):
 ```bash
 rosnode kill --all
 ```
@@ -112,9 +111,9 @@ The drone configuration follows the [GAIA drone setup](https://github.umn.edu/Ho
 4. **Custom 3D-Printed Enclosure and Battery Holder**
 	* **Upgrade:** Custom-designed enclosure and battery holder for compactness and safety during operation.
 
-![Drone Hardware](images/drone_hardware.png)
-
-<img src="images/drone_hardware.png" alt="Drone Hardware" width="300"/>
+<p align="center">
+  <img src="images/drone_hardware.png" alt="Drone Hardware" width="500"/>
+</p>
 
 
 ## Unreal Engine 5 Simulation
