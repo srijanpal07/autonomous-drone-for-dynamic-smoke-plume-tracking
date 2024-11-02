@@ -24,7 +24,7 @@ cd ~/gaia-autonomous-drone/src/autonomous-drone-for-dynamic-smoke-plume-tracking
 bash install_jetson_dependencies.sh
 ```
 
-To further optimize RAM for running deep learning and deep reinforcement learning models on Jetson, refer to the additional steps outlined in this [link](https://www.jetson-ai-lab.com/tips_ram-optimization.html)
+To further optimize RAM for running deep learning and deep reinforcement learning models on Jetson, refer to the additional steps outlined in this [link](https://www.jetson-ai-lab.com/tips_ram-optimization.html) .
 
 
 ### Building the ROS Package:
@@ -91,22 +91,25 @@ rosnode kill --all
 This command will safely end all running ROS nodes.
 
 
-## Configuring the Drone
-In general, the drone configuration is very similar to the standard GAIA drone configuration, but with a few channels moved around to make gimbal control accessible to the drone via Mavros since it can only send commands on the first 8 channels.
+## Drone Hardware Configuartions
 
-### Controller Setup
+This drone configuration closely follows the standard [GAIA drone setup](https://github.umn.edu/HongFlowFieldImagingLab/GAIA-drone-control/tree/peter-server) and is based on the [Holybro S500 v2 development kit](ttps://holybro.com/collections/s500/products/s500-v2-development-kit). The following upgrades enhance real-time performance and adaptability for dynamic smoke tracking:
 
-See "ControllerSettings.jpg" in the Setup Resources google drive folder for changes in controller setup. pitch, roll, and yaw on these channel descriptions refer to the gimbal. Channels 1-5 are not shown in the image but simply correspond to the flight control and mode switch channels as before.
+### Hardware Upgrades:
 
-https://drive.google.com/drive/folders/1MrDqN7BMAj4Jl0IVvFGdhrfC5YlxuMcb?usp=sharing (NSF-MRI-GAIA/Subproject 1.4 - Drone Feedback Control/Resources/Setup Resources)
+1. **Jetson Orin Nano (Primary Edge Computing Board)**
+	* **Upgrade:** The Jetson Orin Nano replaces the Jetson Xavier as the primary onboard computer.
+	* **Recommendation:** Booting from an NVMe SSD is highly recommended to improve inference speeds for deep learning and deep reinforcement learning models in real-time. Details on setting up NVMe SSD boot can be found [here](https://forums.developer.nvidia.com/t/jetson-orin-nano-boot-from-nvme-ssd/252492).
 
-### Drone Parameter Setup
-There is also a drone parameter file in the same Google Drive folder that has the rc#_option parameters configured to perform the correct actions for the switch assignments. (It is a copy of the parameters from GAIA-4, which was used for this testing.) If using Jetson Xavier, you must also enable all SR0 parameters via Mission Planner config tab. These should all have values set to 10 (hz).
+2. **12 MP USB ArduCam (Primary Camera)**
+	* **Upgrade:** The ArduCam has replaced the GoPro, providing higher resolution images faster in real-time.
 
-### Telemetry Cable Wiring
+3. **Updated Pixhawk Parameters**
+	* **Upgrade:** Configured Pixhwak parameters for optimized drone performance - [link-to-parameter-list]().
 
-For the Jetson Orin Nano, w econnected to Pixhawk via USB telemetry to Jetson USB port (/dev/ttyACM0). To enable communication over Pixhawk USB, you must enable all SR0 parameters via Mission Planner config tab. These should have all the values set to 10 (hz).
+4. **Custom 3D-Printed Enclosure and Battery Holder**
+	* **Upgrade:** Custom-designed enclosure and battery holder for compactness and safety during operation.
 
 
-## Appendix B: Simulation Environment Setup
+## Unreal Engine 5 Simulation Environment Setup
 
