@@ -4,9 +4,7 @@ This repository features the code base for the "Autonomous Drone for Dynamic Smo
 
 ## Quick Start
 
-The project setup utilizes an Nvidia Jetson Orin Nano, flashed with JetPack 5.1.3 (Ubuntu 20.04 LTS and ROS Noetic) and configured to boot from an NVMe SSD for optimal performance. The Jetson communicates with the Pixhawk via a USB connection.
-
-Before starting, ensure atleast JetPack 5.1.3 (higher versions does not have ROS Noetic support) is installed on your Jetson module.
+The project setup utilizes an Nvidia Jetson Orin Nano, flashed with JetPack 5.1.3 (Ubuntu 20.04 LTS including TensorRT and ROS Noetic) and configured to boot from an NVMe SSD for optimal performance. The Jetson communicates with the Pixhawk via a USB connection.
 
 ### Clone repo:
 ```bash
@@ -57,14 +55,10 @@ Three parameters can be specified when launching the controller:
 
 * **'execution'** : Specifies the execution environment, either `SIM` (Simulation; default) or `DEPLOY` (Jetson Deployment). Set `execution:=DEPLOY` for real-world deployment on Jetson.
 
-* **'controller'** : Selects the controller type, `PID` (Proportional–Integral–Derivative Controller; default) or `DRL` (Deep Reinforcement Learning Controller).Set `controller:=DRL` to use the DRL-based controller.
+* **'controller'** : Selects the controller type, `PID` (Proportional–Integral–Derivative Controller; default) or `DRL` (Deep Reinforcement Learning Controller). Set `controller:=DRL` to use the DRL-based controller.
 
-Example Commands - 
+Example command - 
 
-For **executing in Jetson** on `drone1` with `PID` controller:
-```bash
-roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_jetson.launch drone:=drone1 execution:=DEPLOY controller:=PID
-```
 For **executing in Jetson** on `drone2` with `DRL` controller:
 ```bash
 roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_jetson.launch drone:=drone2 execution:=DEPLOY controller:=DRL
@@ -84,7 +78,6 @@ To safely stop execution:
 ```bash
 rosnode kill --all
 ```
-This command will safely stop all running ROS nodes.
 
 ## Drone Hardware Configuartions
 
