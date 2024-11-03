@@ -4,7 +4,9 @@ This repository features the code base for the "Autonomous Drone for Dynamic Smo
 
 ## Quick Start
 
-Describe some stuff here like Jetpack and ROS
+The project setup utilizes an Nvidia Jetson Orin Nano, flashed with JetPack 5.1.3 (Ubuntu 20.04 LTS and ROS Noetic) and configured to boot from an NVMe SSD for optimal performance. The Jetson communicates with the Pixhawk via a USB connection.
+
+Before starting, ensure atleast JetPack 5.1.3 (higher versions does not have ROS Noetic support) is installed on your Jetson module.
 
 ### Clone repo:
 ```bash
@@ -18,7 +20,7 @@ git clone https://github.umn.edu/HongFlowFieldImagingLab/autonomous-drone-for-dy
 
 ### Run install script:
 
-The install script is configured to install ROS Melodic and necessary dependencies for running YOLOv8 and Stable Baselines3 PPO. May need to run the installation script multiple times after the system automatically reboots until you see the message `Completing Installation of Dependencies ...` in the terminal. 
+The install script is configured to install ROS Noetic and necessary dependencies for running YOLOv8 and Stable Baselines3 PPO. May need to run the installation script multiple times after the system automatically reboots until you see the message `Completing Installation of Dependencies ...` in the terminal. 
 
 To execute the script, use the following commands:
 ```bash
@@ -49,21 +51,13 @@ roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_jetson.l
 ```
 
 ### Configurable parameters:
-Three parameters can be specified when launching the controller to tailor the setup to specific needs:
+Three parameters can be specified when launching the controller:
 
-* **'drone'** : Specifies the MAVROS namespace of the drone. 
-    * **Default**: `drone1` 
-    * **Usage**: Use `drone:=<namespace>` if the namespace is different from `drone1`.
+* **'drone'** : Specifies the MAVROS namespace of the drone (default: `drone1`). Specify with `drone:=<namespace>` if different.
 
-* **'execution'** : Specifies the execution environment.
-    * **Options**: `SIM` (Simulation) | `DEPLOY` (Jetson Deployment)
-    * **Default**: `SIM` 
-    * **Usage**: Set `execution:=DEPLOY` for real-world deployment on Jetson.
+* **'execution'** : Specifies the execution environment, either `SIM` (Simulation; default) or `DEPLOY` (Jetson Deployment). Set `execution:=DEPLOY` for real-world deployment on Jetson.
 
-* **'controller'** : Selects the controller type.
-    * **Options**: `PID` (Proportional–Integral–Derivative Controller) | `DRL` (Deep Reinforcement Learning Controller)
-    * **Default**: `PID` 
-    * **Usage**: Set `controller:=DRL` to use the DRL-based controller.
+* **'controller'** : Selects the controller type, `PID` (Proportional–Integral–Derivative Controller; default) or `DRL` (Deep Reinforcement Learning Controller).Set `controller:=DRL` to use the DRL-based controller.
 
 Example Commands - 
 
@@ -94,7 +88,7 @@ This command will safely stop all running ROS nodes.
 
 ## Drone Hardware Configuartions
 
-The drone configuration follows the [GAIA drone setup](https://github.umn.edu/HongFlowFieldImagingLab/GAIA-drone-control/tree/peter-server), which is based on the [Holybro S500 v2 development kit](https://holybro.com/collections/s500/products/s500-v2-development-kit). The following upgrades enhance performance for dynamic smoke tracking:
+The drone configuration follows the [GAIA drone setup](https://github.umn.edu/HongFlowFieldImagingLab/GAIA-drone-control/tree/peter-server), which is based on the [Holybro S500 v2 development kit](https://holybro.com/collections/s500/products/s500-v2-development-kit) with some upgrades to enhance performance for dynamic smoke tracking.
 
 ### Hardware Upgrades:
 
@@ -112,16 +106,16 @@ The drone configuration follows the [GAIA drone setup](https://github.umn.edu/Ho
 	* **Upgrade:** Custom-designed enclosure and battery holder for compactness and safety during operation.
 
 <p align="center">
-  <img src="images/drone_hardware.png" alt="Drone Hardware" width="500"/>
+  <img src="images/drone_hardware.png" alt="Drone Hardware" width="400"/>
 </p>
 
 
 ## Unreal Engine 5 Simulation
 
-Detailed information on how to setup the Unreal Engine 5.1.1 simulation environment from scratch for realistic smoke tracking is provided [here](). 
+Detailed instructions on how to setup the Unreal Engine 5.1.1 simulation environment from scratch for realistic smoke tracking is provided [here](). 
 
-### Starting the controller:
-Given that the setup is done properly and "autonomous_drone_for_dynamic_smoke_tracking" is build properly in the WSL mentioned in the above link, play the simulation in UE, open a WSL2 terminal and run this command:
+### Running the Smoke Tracking Controller:
+Given that the setup is done properly and `autonomous_drone_for_dynamic_smoke_tracking` package is built in WSL2, to start smoke trakcking simulation - play the simulation in UE, open a WSL2 terminal and run this command:
 ```bash
 roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_sim.launch execution:=SIM
 ```
