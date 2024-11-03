@@ -1,12 +1,19 @@
 # Autonomous Drone for Dynamic Smoke Plume Tracking
 This repository features the code base for the "Autonomous Drone for Dynamic Smoke Plume Tracking" project. Built on a quadrotor with Nvidia Jetson Orin Nano, it uses vision-based PID and PPO-based DRL controllers for real-time smoke tracking in unsteady wind conditions. The Unreal Engine simulation environment was used to develop and test the vision-based PID control algorithm for smoke plume tracking, as well as to train, test, and refine the deep reinforcement learning-based controller.
 
+## Algorithm Overview
+
+<p align="center">
+  <img src="images/algorithm_overview.png" alt="Algorithm Overview" width="400"/>
+  <img src="images/algorithm.png" alt="Algorithm" width="400"/>
+</p>
+
 
 ## Quick Start
 
 The project setup utilizes an Nvidia Jetson Orin Nano, flashed with JetPack 5.1.3 (Ubuntu 20.04 LTS including TensorRT and ROS Noetic) and configured to boot from an NVMe SSD for optimal performance. The Jetson communicates with the Pixhawk via a USB connection.
 
-### Clone repo:
+### Clone Repository:
 ```bash
 cd ~
 mkdir gaia-autonomous-drone
@@ -16,7 +23,7 @@ cd src
 git clone https://github.umn.edu/HongFlowFieldImagingLab/autonomous-drone-for-dynamic-smoke-plume-tracking.git
 ```
 
-### Run install script:
+### Install Dependencies:
 
 The install script is configured to install ROS Noetic and necessary dependencies for running YOLOv8 and Stable Baselines3 PPO. May need to run the installation script multiple times after the system automatically reboots until you see the message `Completing Installation of Dependencies ...` in the terminal. 
 
@@ -48,7 +55,7 @@ To initiate smoke tracking, use the following command:
 roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_jetson.launch execution:=DEPLOY
 ```
 
-### Configurable parameters:
+### Configurable Parameters:
 Three parameters can be specified when launching the controller:
 
 * **'drone'** : Specifies the MAVROS namespace of the drone (default: `drone1`). Specify with `drone:=<namespace>` if different.
@@ -83,6 +90,10 @@ rosnode kill --all
 
 The drone configuration follows the [GAIA drone setup](https://github.umn.edu/HongFlowFieldImagingLab/GAIA-drone-control/tree/peter-server), which is based on the [Holybro S500 v2 development kit](https://holybro.com/collections/s500/products/s500-v2-development-kit) with some upgrades to enhance performance for dynamic smoke tracking.
 
+<p align="center">
+  <img src="images/drone_hardware.png" alt="Drone Hardware" width="400"/>
+</p>
+
 ### Hardware Upgrades:
 
 1. **Jetson Orin Nano (Primary Edge Computing Board)**
@@ -97,10 +108,6 @@ The drone configuration follows the [GAIA drone setup](https://github.umn.edu/Ho
 
 4. **Custom 3D-Printed Enclosure and Battery Holder**
 	* **Upgrade:** Custom-designed enclosure and battery holder for compactness and safety during operation.
-
-<p align="center">
-  <img src="images/drone_hardware.png" alt="Drone Hardware" width="400"/>
-</p>
 
 
 ## Unreal Engine 5 Simulation
@@ -117,7 +124,7 @@ Given that the setup is done properly and `autonomous_drone_for_dynamic_smoke_tr
 roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_sim.launch execution:=SIM
 ```
 
-### Configurable parameters:
+### Configurable Parameters:
 Three parameters ('drone', 'execution', and 'controller'), same as mentioned before in the Quick Start section (in 'Configurable parameters'), can be specified as arguments when launching the controller.
 
 ### Troubleshooting:
