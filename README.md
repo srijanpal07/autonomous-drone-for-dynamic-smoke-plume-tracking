@@ -3,26 +3,8 @@ This repository features the code base for the "Autonomous Drone for Dynamic Smo
 
 ## Algorithm Overview
 
-<div style="display: flex; align-items: flex-start;">
-
-  <!-- Left column with two stacked images -->
-  <div style="flex: 1;">
-    <img src="images/algorithm_overview.png" alt="Algorithm Overview" width="30%"/>
-    <img src="images/field_deployment.png" alt="Field Deployment" width="30%"/>
-  </div>
-
-  <!-- Right column with a single, larger image -->
-  <div style="flex: 1; margin-left: 5px;">
-    <img src="images/algorithm.png" alt="Algorithm" width="30%"/>
-  </div>
-
-</div>
-
-
-
 <p align="center">
-  <img src="images/algorithm_overview.png" alt="Algorithm Overview" width="50%"/>
-  <img src="images/algorithm.png" alt="Algorithm" width="300"/>
+  <img src="images/algorithm_combined.png" alt="Drone Hardware" width="850"/>
 </p>
 
 
