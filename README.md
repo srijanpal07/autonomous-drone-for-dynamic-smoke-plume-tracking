@@ -7,13 +7,13 @@ This repository features the code base for the "Autonomous Drone for Dynamic Smo
 
   <!-- Left column with two stacked images -->
   <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
-    <img src="images/algorithm_overview.png" alt="Algorithm Overview" width="100%"/>
-    <img src="images/field_deployment.png" alt="Field Deployment" width="100%"/>
+    <img src="images/algorithm_overview.png" alt="Algorithm Overview" width="50%"/>
+    <img src="images/field_deployment.png" alt="Field Deployment" width="50%"/>
   </div>
 
   <!-- Right column with a single, larger image -->
   <div style="flex: 1; margin-left: 10px;">
-    <img src="images/algorithm.png" alt="Algorithm" width="100%"/>
+    <img src="images/algorithm.png" alt="Algorithm" width="50%"/>
   </div>
 
 </div>
@@ -21,7 +21,7 @@ This repository features the code base for the "Autonomous Drone for Dynamic Smo
 
 
 <p align="center">
-  <img src="images/algorithm_overview.png" alt="Algorithm Overview" width="500"/>
+  <img src="images/algorithm_overview.png" alt="Algorithm Overview" width="50%"/>
   <img src="images/algorithm.png" alt="Algorithm" width="300"/>
 </p>
 
