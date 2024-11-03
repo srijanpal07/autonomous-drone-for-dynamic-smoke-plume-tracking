@@ -4,8 +4,8 @@ This repository features the code base for the "Autonomous Drone for Dynamic Smo
 ## Algorithm Overview
 
 <p align="center">
-  <img src="images/algorithm_overview.png" alt="Algorithm Overview" width="400"/>
-  <img src="images/algorithm.png" alt="Algorithm" width="400"/>
+  <img src="images/algorithm_overview.png" alt="Algorithm Overview" width="500"/>
+  <img src="images/algorithm.png" alt="Algorithm" width="300"/>
 </p>
 
 
