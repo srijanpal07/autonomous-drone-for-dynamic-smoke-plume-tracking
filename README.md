@@ -107,6 +107,10 @@ The drone configuration follows the [GAIA drone setup](https://github.umn.edu/Ho
 
 Detailed instructions on how to setup the Unreal Engine 5.1.1 simulation environment from scratch for realistic smoke tracking is provided [here](). 
 
+<p align="center">
+  <img src="images/unreal_engine_simulation.png" alt="Unreal Engine Simulation" width="400"/>
+</p>
+
 ### Running the Smoke Tracking Controller:
 Given that the setup is done properly and `autonomous_drone_for_dynamic_smoke_tracking` package is built in WSL2, to start smoke trakcking simulation - play the simulation in UE, open a WSL2 terminal and run this command:
 ```bash
