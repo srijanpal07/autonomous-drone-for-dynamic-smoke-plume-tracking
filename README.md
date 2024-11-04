@@ -61,7 +61,7 @@ Three parameters can be specified when launching the controller:
 
 * **'execution'** : Specifies the execution environment, either `SIM` (Simulation; default) or `DEPLOY` (Jetson Deployment). Set `execution:=DEPLOY` for real-world deployment on Jetson.
 
-* **'controller'** : Selects the controller type, `PID` (Proportional–Integral–Derivative Controller; default) or `DRL` (Deep Reinforcement Learning Controller). Set `controller:=DRL` to use the DRL-based controller.
+* **'controller'** : Specifies the controller type, `PID` (Proportional–Integral–Derivative Controller; default) or `DRL` (Deep Reinforcement Learning Controller). Set `controller:=DRL` to use the DRL-based controller.
 
 Example command - 
 
@@ -80,12 +80,12 @@ chmod +x smoke_track_jetson.sh
 
 To safely stop execution:
 1. Press Ctrl-C in each terminal window individually, or 
-2. Terminate all nodes simultaneoulsy with (recommended if any node has been sent to the background):
+2. Terminate all nodes simultaneously with (recommended if any node has been sent to the background):
 ```bash
 rosnode kill --all
 ```
 
-## Drone Hardware Configuartions
+## Drone Hardware Configurations
 
 The drone configuration follows the [GAIA drone setup](https://github.umn.edu/HongFlowFieldImagingLab/GAIA-drone-control/tree/peter-server), which is based on the [Holybro S500 v2 development kit](https://holybro.com/collections/s500/products/s500-v2-development-kit) with some upgrades to enhance performance for dynamic smoke tracking.
 
@@ -118,7 +118,7 @@ Detailed instructions on how to setup the Unreal Engine 5.1.1 simulation environ
 </p>
 
 ### Running the Smoke Tracking Controller:
-Given that the setup is done properly and `autonomous_drone_for_dynamic_smoke_tracking` package is built in WSL2, to start smoke trakcking simulation - play the simulation in UE, open a WSL2 terminal and run this command:
+Given that the setup is done properly and `autonomous_drone_for_dynamic_smoke_tracking` package is built in WSL2, to start smoke tracking simulation - play the simulation in UE, open a WSL2 terminal and run this command:
 ```bash
 roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_sim.launch execution:=SIM
 ```
@@ -127,7 +127,7 @@ roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_sim.laun
 Three parameters ('drone', 'execution', and 'controller'), same as mentioned before in the Quick Start section (in 'Configurable parameters'), can be specified as arguments when launching the controller.
 
 ### Troubleshooting:
-Run this bash script (`./smoke_track_sim.sh`) to start all the nodes in seprate terminals of WSL2:
+Run this bash script (`./smoke_track_sim.sh`) to start all the nodes in separate terminals of WSL2:
 ```bash
 cd ~/gaia-autonomous-drone/src/autonomous-drone-for-dynamic-smoke-plume-tracking/launch
 chmod +x smoke_track_sim.sh
