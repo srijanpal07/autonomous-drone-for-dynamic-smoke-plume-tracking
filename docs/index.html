@@ -128,10 +128,29 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <center>
+                        <h3>
+                            Methodology
+                        </h3>
+                        </center>
+                    <center>
                         <image src="assets/algorithm.png" class="img-responsive" alt="overview" width="100%" height="100%" style="margin:auto;">
                     </center>
                     <p style="margin-top: 20px;  text-align: justify;">
-                        Overview of <i>Lift3D</i>: a) Given multi-view images of a scene, we first extract an intermediate feature map using an encoder for each view independently, b) Using the source view features, we estimate the target view feature map via an extended generalizable novel view synthesis pipeline that learns to correct feature space inconsistency and fuse information according to 3D geometry priors, and c) Directly use the decoder from the pre-trained visual model to process the estimated feature map and synthesize the final prediction for downstream tasks.
+                        Overview: Our autonomous drone-based smoke tracking system 
+                        utilizes a quadrotor equipped with a RGB camera and an edge 
+                        computing device for real-time processing. The system supports 
+                        YOLO-based smoke localization and PID/DRL control algorithms 
+                        and operates in two phases: the descending phase and the 
+                        in-plume tracking phase. In the descending phase, the drone 
+                        positions itself above the smoke plume using YOLO-based 
+                        detection, descends toward the plume guided by a PID controller, 
+                        and aligns with the smoke flow via optical flow. Upon reaching 
+                        the plume, the system transitions to the in-plume tracking phase, 
+                        where segmentation localizes the smoke in the frame. The 
+                        trajectory is dynamically adjusted using a combination of PID 
+                        and DRL (PPO) controllers to maintain the drones location 
+                        within smoke, even under shifting wind conditions. This enables 
+                        continuous tracking of the densest plume regions in dynamic environments.
                     </p>
                 </div>
             </div>
@@ -143,17 +162,8 @@
                     </h3>
                     </center>
                     <center>
-                        <image src="assets/gallery.png" width="100%">
-                    </center>
-                    <a href="https://www.youtube.com/watch?v=sxLatmcnbQI" target="_blank">
-                        <img src="https://www.youtube.com/watch?v=sxLatmcnbQI/hqdefault.jpg" alt="Video Thumbnail" style="width: 100%; max-width: 560px; display: block; margin: auto;">
-                    </a>
-
-                    <iframe width="560" height="315" src="https://www.youtube.com/watch?v=sxLatmcnbQI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-
-                    <center>
-                        <video width="560" height="315" controls muted>
+                        <video width="100%" height="100%" controls muted>
+                            <!--video width="560" height="315" controls muted></video-->
                             <source src="assets/youtube_video.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
