@@ -90,7 +90,7 @@ rosnode kill --all
 The drone configuration follows the [GAIA drone setup](https://github.umn.edu/HongFlowFieldImagingLab/GAIA-drone-control/tree/peter-server), which is based on the [Holybro S500 v2 development kit](https://holybro.com/collections/s500/products/s500-v2-development-kit) with some upgrades to enhance performance for dynamic smoke tracking.
 
 <p align="center">
-  <img src="images/drone_hardware.png" alt="Drone Hardware" width="400"/>
+  <img src="images/drone_hardware.jpg" alt="Drone Hardware" width="400"/>
 </p>
 
 ### Hardware Upgrades:
