@@ -126,6 +126,7 @@ roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_sim.laun
 ### Configurable Parameters:
 Three parameters ('drone', 'execution', and 'controller'), same as mentioned before in the Quick Start section (in 'Configurable parameters'), can be specified as arguments when launching the controller.
 
+
 ### Troubleshooting:
 Run this bash script (`./smoke_track_sim.sh`) to start all the nodes in separate terminals of WSL2:
 ```bash
@@ -138,5 +139,28 @@ To stop execution, press Ctrl-C in each terminal or to terminate all nodes at on
 ```bash
 rosnode kill --all
 ```
+
+
+### Running Evakuation:
+In Evaliuation mode, there is one more drone (observer) which stays above the smoke to observe the 
+drone tracking inside the plume from top-down view. To map the location of the smoke tracking drone 
+we are using the smoke tracker drone GPS location and map it to the observer drone's image. 
+The AirSim settings files need to be updated to launch both the drones in the simulation and the 
+corresponding TCP and UDP ports needs to be opened for effective communication. More detailed 
+instructions can be found in "Swarm Setup" section of the [presentation](https://docs.google.com/presentation/d/16DHpf_DLjRxbpEmhME79vYYNVWVNpi4U/edit?usp=sharing&ouid=110327030495903184689&rtpof=true&sd=true). 
+After setup run this launch file:
+```bash
+roslaunch autonomous_drone_for_dynamic_smoke_plume_tracking smoke_track_sim_evaluation_mode.launch execution:=SIM controller:=PID observer_drone:=drone1 tracker_drone:=drone2
+```
+
+### Configurable Parameters:
+4 parameters ('tracker_drone', 'observer_drone', 'execution', and 'controller'), same as mentioned before in the Quick Start section (in 'Configurable parameters'), can be specified as arguments when launching the controller.
+
+
+
+
+
+
+
 
 

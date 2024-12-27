@@ -1,13 +1,52 @@
 <launch>
 
-	<node name="cameranode" pkg="GAIA-drone-control" type="cameranode.py" output="screen"/>
+	<arg name="observer_drone" default="drone1" />
+	<arg name="tracker_drone" default="drone2" />
+	<arg name="execution" default="SIM" />
+	<arg name="controller" default="PID" />
 
-	<node name="detectionnode_trt" pkg="GAIA-drone-control" type="detectionnode_trt.py" output="screen"/>
 
-	<node name="flownode" pkg="GAIA-drone-control" type="opticalflownode.py" output="screen"/>
+	<include file="$(find GAIA-drone-control)/launch/mavros-telem-drone.launch">
+		<arg name="ns" value="drone1" />
+		<arg name="fcu_url" value="udp://:14030@127.0.0.1:14030" />
+		<arg name="tgt_system" value="1" />
+	</include>
 
-	<node name="feedbackcontrolnode" pkg="GAIA-drone-control" type="feedbackcontrolnode.py" output="screen"/>
 
-	<include file="$(find GAIA-drone-control)/launch/mavros-telem-drone.launch"></include>
+	<include file="$(find GAIA-drone-control)/launch/mavros-telem-drone.launch">
+		<arg name="ns" value="drone2" />
+		<arg name="fcu_url" value="udp://:14031@127.0.0.1:14031" />
+		<arg name="tgt_system" value="2" />
+	</include>
+
+
+
+	<node name="cameranode_observerdrone" pkg="autonomous_drone_for_dynamic_smoke_plume_tracking" type="simCam_node.py" output="screen">
+		<param name="drone" value="$(arg observer_drone)" />
+    </node>
+
+	<node name="controllernode_observerdrone" pkg="autonomous_drone_for_dynamic_smoke_plume_tracking" type="hover_observer_drone.py" output="screen">
+		<param name="drone" value="$(arg observer_drone)" />
+    </node>
+
+	<node name="evaluationnode" pkg="autonomous_drone_for_dynamic_smoke_plume_tracking" type="mapping_2D_to_3D.py" output="screen">
+		<param name="drone" value="$(arg observer_drone)" />
+    </node>
+
+
+
+	<node name="cameranode_trackerdrone" pkg="autonomous_drone_for_dynamic_smoke_plume_tracking" type="simCam_node.py" output="screen">
+		<param name="drone" value="$(arg tracker_drone)" />
+    </node>
+
+	<node name="detectionnode" pkg="autonomous_drone_for_dynamic_smoke_plume_tracking" type="detection_node.py" output="screen"/>
+
+	<node name="segmentationnode" pkg="autonomous_drone_for_dynamic_smoke_plume_tracking" type="segmentation_node.py" output="screen"/>
+
+	<node name="controllernode_trackerdrone" pkg="autonomous_drone_for_dynamic_smoke_plume_tracking" type="controller_node.py" output="screen">
+		<param name="drone" value="$(arg tracker_drone)" />
+		<param name="execution" value="$(arg execution)" />
+		<param name="controller" value="$(arg controller)" />
+    </node>
 
 </launch>
