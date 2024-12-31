@@ -14,6 +14,9 @@ terminator -e "
 rosrun autonomous_drone_for_dynamic_smoke_plume_tracking detection_node.py; bash" &
 
 terminator -e "
+rosrun autonomous_drone_for_dynamic_smoke_plume_tracking opticalflow_node.py; bash" &
+
+terminator -e "
 rosrun autonomous_drone_for_dynamic_smoke_plume_tracking segmentation_node.py; bash" &
 
 terminator -e "
