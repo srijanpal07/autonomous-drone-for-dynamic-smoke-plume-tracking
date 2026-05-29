@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html>
-    <head lang="en">
+<html lang="en">
+    <head>
         <meta charset="UTF-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>autonomous-drone-for-dynamic-smoke-plume-tracking</title>
-        <meta name="description" content="">
+        <title>Autonomous Drone for Dynamic Smoke Plume Tracking</title>
+        <meta name="description" content="Autonomous drone-based smoke plume tracking system using YOLO and DRL (PPO) for navigating unsteady atmospheric conditions. ICRA 2025.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Open Graph -->
+        <meta property="og:title" content="Autonomous Drone for Dynamic Smoke Plume Tracking">
+        <meta property="og:description" content="Autonomous drone-based smoke plume tracking system using YOLO and DRL (PPO) for navigating unsteady atmospheric conditions. ICRA 2025.">
+        <meta property="og:image" content="assets/smoketrack-teaser.gif">
+        <meta property="og:type" content="website">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
@@ -21,7 +26,7 @@
                 <h2 class="col-md-12 text-center">
                     Autonomous Drone for Dynamic Smoke Plume Tracking <br>
                     <small>
-                        ICRA 2025 (Accepted)
+                        Published in: 2025 IEEE International Conference on Robotics and Automation (ICRA)
                     </small>
                 </h2>
             </div>
@@ -52,7 +57,7 @@
                         <br>
                         <li>
                             <sup>1</sup>Minnesota Robotics Institute, University of Minnesota
-                        </li> 
+                        </li>
                         <li>
                             <sup>2</sup>Mechanical Engineering, University of Minnesota
                         </li>
@@ -67,19 +72,25 @@
                     <ul class="list-inline">
                         <li>
                             <a href="assets/paper.pdf">
-                                <image src="assets/pdf.png" height="50px">
+                                <img src="assets/pdf.png" height="50px" alt="Paper PDF">
                                 <h4><strong>Paper</strong></h4>
                             </a>
                         </li>
                         <li>
+                            <a href="https://ieeexplore.ieee.org/document/11128144/citations?tabFilter=papers#citations" target="_blank">
+                                <i class="fa fa-book" style="font-size:50px; line-height:50px;"></i>
+                                <h4><strong>IEEE Xplore</strong></h4>
+                            </a>
+                        </li>
+                        <li>
                             <a href="https://srijanpal07.github.io/portfolio/assets/data/ICRA2025_Autonomous%20Drone%20for%20Dynamic%20Smoke%20Plume%20Tracking%20-%20website.pdf">
-                                <image src="assets/slides.png" height="30px">
+                                <img src="assets/slides.png" height="30px" alt="Presentation Slides">
                                 <h4><strong>Presentation</strong></h4>
                             </a>
                         </li>
                         <li>
                             <a href="https://github.com/srijanpal07/autonomous-drone-for-dynamic-smoke-plume-tracking">
-                                <image src="assets/github.png" height="50px">
+                                <img src="assets/github.png" height="50px" alt="GitHub Repository">
                                 <h4><strong>Code</strong></h4>
                             </a>
                         </li>
@@ -87,21 +98,15 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    <center>
-                        <image src="assets/smoketrack-teaser.gif" width="100%">
-                    </center>
+                <div class="col-md-8 col-md-offset-2 text-center">
+                    <img src="assets/smoketrack-teaser.gif" width="100%" alt="Smoke plume tracking teaser">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    <center>
-                    <h3>
-                        Abstract
-                    </h3>
-                    </center>
+                    <h3 class="text-center">Abstract</h3>
                     <p class="text-justify">
-                        <i>This paper presents a novel autonomous dronebased smoke plume 
+                        <i>This paper presents a novel autonomous drone-based smoke plume
                             tracking system capable of navigating and
                             tracking plumes in highly unsteady atmospheric conditions.
                             The system integrates advanced hardware and software, along
@@ -113,11 +118,11 @@
                             tracking dynamic smoke plumes under fluctuating conditions.
                             Our software implements a two-phase flight operation:
                             descending into the smoke plume upon detection and
-                            continuously monitoring the smoke's movement during inplume 
+                            continuously monitoring the smoke's movement during in-plume
                             tracking. Leveraging PID control and a Proximal Policy
                             Optimization Deep Reinforcement Learning (DRL) controller
                             enables adaptation to plume dynamics. Simulations using
-                            Unreal Engine evaluate performance under various smokewind 
+                            Unreal Engine evaluate performance under various smoke-wind
                             scenarios, from steady flow to complex, unsteady
                             fluctuations, showing that while the PID controller performs
                             adequately in simpler scenarios, the DRL-based controller
@@ -133,101 +138,90 @@
             <br>
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    <center>
-                        <h3>
-                            Methodology
-                        </h3>
-                        </center>
-                    <center>
-                        <image src="assets/algorithm.png" class="img-responsive" alt="overview" width="100%" height="100%" style="margin:auto;">
-                    </center>
-                    <p style="margin-top: 20px;  text-align: justify;">
-                        Overview: Our autonomous drone-based smoke tracking system 
+                    <h3 class="text-center">Methodology</h3>
+                    <div class="text-center">
+                        <img src="assets/algorithm.png" class="img-responsive" alt="System overview diagram" width="100%" height="100%" style="margin:auto;">
+                    </div>
+                    <p style="margin-top: 20px; text-align: justify;">
+                        Overview: Our autonomous drone-based smoke tracking system
                         utilizes a quadrotor primarily equipped with an RGB camera and a Nvidia
-                        Jetson Orin Nano for real-time computing. The system supports 
-                        YOLO-based smoke localization and PID/DRL-based drone control 
-                        algorithms and operates in two phases: the descending phase and the 
-                        in-plume tracking phase. In the descending phase, the drone 
+                        Jetson Orin Nano for real-time computing. The system supports
+                        YOLO-based smoke localization and PID/DRL-based drone control
+                        algorithms and operates in two phases: the descending phase and the
+                        in-plume tracking phase. In the descending phase, the drone
                         positions itself above the smoke plume using YOLO-based smoke
-                        detection, descends inside the plume in the smoke dispersion region, 
-                        and keeps the heading opposite to the smoke flow diection i.e towards 
-                        the source. The system then transitions to the in-plume tracking phase, 
-                        where yolo-based segmentation localizes the smoke in the frame. 
-                        Utilizing this localization information, the trajectory is then 
-                        dynamically adjusted using a combination of PID and DRL (PPO) 
-                        controllers to keep the drone within the plume, even under shifting 
-                        wind conditions. This enables continuous tracking of the densest 
+                        detection, descends inside the plume in the smoke dispersion region,
+                        and keeps the heading opposite to the smoke flow direction i.e towards
+                        the source. The system then transitions to the in-plume tracking phase,
+                        where YOLO-based segmentation localizes the smoke in the frame.
+                        Utilizing this localization information, the trajectory is then
+                        dynamically adjusted using a combination of PID and DRL (PPO)
+                        controllers to keep the drone within the plume, even under shifting
+                        wind conditions. This enables continuous tracking of the densest
                         plume regions in dynamic environments.
                     </p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    <center>
-                    <h3>
-                        Short Demonstration
-                    </h3>
-                    </center>
-                    <center>
+                    <h3 class="text-center">Short Demonstration</h3>
+                    <div class="text-center">
                         <video width="100%" height="100%" controls muted>
-                            <!--video width="560" height="315" controls muted></video-->
                             <source src="assets/youtube_video.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
-                    </center>
+                    </div>
 
-                    <center>
-                        <h3>
-                            Detailed Demonstration
-                        </h3>
-                    </center>
-                    <center>
+                    <h3 class="text-center">Detailed Demonstration</h3>
+                    <div class="text-center">
                         <video width="100%" height="100%" controls muted>
-                            <!--video width="560" height="315" controls muted></video-->
                             <source src="assets/smoketrack_fulldemo_lowfps.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
-                    </center>
-                    
-                    
-                    <center>
-                        <p style="margin-top: 20px;  text-align: justify;">
-                            The evaluation results demonstrate that the DRL controller 
-                            outperforms the PID controller in various dynamic smoke 
-                            tracking scenarios. In steady smoke flow, DRL achieves a 
-                            slightly better normalized average distance from the mean 
-                            line (1.4%) compared to PID (1.6%). In more challenging 
-                            conditions, such as high-frequency unsteady smoke flow (UH), 
-                            DRL reduces the normalized maximum distance from the mean line 
-                            to 12.3%, compared to PID's 18.6%, and maintains 85.0% of the 
-                            time inside the plume, significantly better than PID's 69.4%. 
-                            Under 3D fluctuations (U3D), DRL also shows superior tracking, 
-                            with a normalized average distance of 1.9%, while PID's is 4.1%. 
-                            These results highlight DRL's enhanced adaptability and accuracy 
-                            in tracking the smoke plume across fluctuating and unpredictable 
-                            conditions.
-                        </p>
-                    </center>
+                    </div>
+
+                    <p style="margin-top: 20px; text-align: justify;">
+                        The evaluation results demonstrate that the DRL controller
+                        outperforms the PID controller in various dynamic smoke
+                        tracking scenarios. In steady smoke flow, DRL achieves a
+                        slightly better normalized average distance from the mean
+                        line (1.4%) compared to PID (1.6%). In more challenging
+                        conditions, such as high-frequency unsteady smoke flow (UH),
+                        DRL reduces the normalized maximum distance from the mean line
+                        to 12.3%, compared to PID's 18.6%, and maintains 85.0% of the
+                        time inside the plume, significantly better than PID's 69.4%.
+                        Under 3D fluctuations (U3D), DRL also shows superior tracking,
+                        with a normalized average distance of 1.9%, while PID's is 4.1%.
+                        These results highlight DRL's enhanced adaptability and accuracy
+                        in tracking the smoke plume across fluctuating and unpredictable
+                        conditions.
+                    </p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    <h3>
-                        Citation
-                    </h3>
-                    <pre>
-</pre>
+                    <h3>Citation</h3>
+                    <pre>@INPROCEEDINGS{11128144,
+  author={Pal, Srijan Kumar and Sharma, Shashank and Krishnakumar, Nikil and Hong, Jiarong},
+  booktitle={2025 IEEE International Conference on Robotics and Automation (ICRA)},
+  title={Autonomous Drone for Dynamic Smoke Plume Tracking},
+  year={2025},
+  volume={},
+  number={},
+  pages={303-309},
+  keywords={Wildfires;PI control;Tracking;Software;Real-time systems;PD control;Robotics and automation;Monitoring;Drones;Quadrotors},
+  doi={10.1109/ICRA55743.2025.11128144}}</pre>
                 </div>
             </div>
         </div>
-    </body>
-    <footer>
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <p class="text-center">
-                    This website is adapted from <a href="http://mgharbi.com/">Michaël Gharbi</a>.
-                </p>
+        <footer>
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <p class="text-center">
+                        This website is adapted from <a href="http://mgharbi.com/">Michaël Gharbi</a>.
+                    </p>
+                </div>
             </div>
-        </div>
-    </footer>
+        </footer>
+    </body>
 </html>
