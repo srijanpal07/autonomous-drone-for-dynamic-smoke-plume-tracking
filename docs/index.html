@@ -48,13 +48,15 @@
                             Nikil Krishnakumar<sup>1, 3</sup>
                             </a>
                         </li>
-                        <br>
+                    </ul>
+                    <ul class="list-inline">
                         <li>
                             <a href="https://cse.umn.edu/me/jiarong-hong">
                             Jiarong Hong<sup>2, 3</sup>
                             </a>
                         </li>
-                        <br>
+                    </ul>
+                    <ul class="list-inline">
                         <li>
                             <sup>1</sup>Minnesota Robotics Institute, University of Minnesota
                         </li>
@@ -71,7 +73,7 @@
                 <div class="col-md-6 col-md-offset-3 text-center">
                     <ul class="list-inline">
                         <li>
-                            <a href="https://ieeexplore.ieee.org/document/11128144/citations?tabFilter=papers#citations" target="_blank">
+                            <a href="https://ieeexplore.ieee.org/document/11128144" target="_blank">
                                 <img src="assets/icra2025.jpg" height="50px" alt="ICRA 2025">
                                 <h4><strong>Paper (DOI)</strong></h4>
                             </a>
@@ -135,8 +137,7 @@
                     </p>
                 </div>
             </div>
-            <br>
-            <div class="row">
+            <div class="row" style="margin-top: 20px;">
                 <div class="col-md-8 col-md-offset-2">
                     <h3 class="text-center">Methodology</h3>
                     <div class="text-center">
@@ -171,7 +172,10 @@
                             Your browser does not support the video tag.
                         </video>
                     </div>
-
+                </div>
+            </div>
+            <div class="row" style="margin-top: 30px;">
+                <div class="col-md-8 col-md-offset-2">
                     <h3 class="text-center">Detailed Demonstration</h3>
                     <div class="text-center">
                         <video width="100%" height="100%" controls muted>
@@ -179,24 +183,25 @@
                             Your browser does not support the video tag.
                         </video>
                     </div>
-
-                    <h3 class="text-center" style="margin-top: 30px;">Results</h3>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 30px;">
+                <div class="col-md-8 col-md-offset-2">
+                    <h3 class="text-center">Results</h3>
                     <div class="text-center">
                         <img src="assets/result_plot.png" class="img-responsive" width="100%" alt="Evaluation results: DRL vs PID tracking accuracy and time inside smoke plume across steady and unsteady scenarios">
                     </div>
-
                     <p style="margin-top: 20px; text-align: justify;">
                         The evaluation results demonstrate that the DRL controller
                         outperforms the PID controller in various dynamic smoke
                         tracking scenarios. In steady smoke flow, DRL achieves a
-                        slightly better normalized average distance from the mean
-                        line (1.4%) compared to PID (1.6%). In more challenging
-                        conditions, such as high-frequency unsteady smoke flow (UH),
-                        DRL reduces the normalized maximum distance from the mean line
-                        to 12.3%, compared to PID's 18.6%, and maintains 85.0% of the
-                        time inside the plume, significantly better than PID's 69.4%.
-                        Under 3D fluctuations (U3D), DRL also shows superior tracking,
-                        with a normalized average distance of 1.9%, while PID's is 4.1%.
+                        slightly better mean tracking error (1.4%) compared to PID (1.6%).
+                        In more challenging conditions, such as high-frequency unsteady
+                        smoke flow (UH), DRL reduces the normalized maximum distance from
+                        the mean line to 12.3%, compared to PID's 18.6%, and maintains
+                        85.0% of the time inside the plume, significantly better than
+                        PID's 69.4%. Under 3D fluctuations (U3D), DRL also shows superior
+                        tracking, with a mean tracking error of 1.9%, while PID's is 4.1%.
                         These results highlight DRL's enhanced adaptability and accuracy
                         in tracking the smoke plume across fluctuating and unpredictable
                         conditions.
@@ -205,7 +210,7 @@
             </div>
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    <h3>Citation</h3>
+                    <h3 class="text-center">Citation</h3>
                     <pre>@INPROCEEDINGS{11128144,
   author={Pal, Srijan Kumar and Sharma, Shashank and Krishnakumar, Nikil and Hong, Jiarong},
   booktitle={2025 IEEE International Conference on Robotics and Automation (ICRA)},
